@@ -86,6 +86,9 @@ class _InputDataState extends State<InputData> {
 
               // Send
               //lingy plez
+
+              //prompting of submission
+              showAlertDialog(context, selectedLine, selectedColor, formattedDate);
             },
             child: Container(
               padding: const EdgeInsets.all(20.0),
@@ -126,4 +129,32 @@ class _InputDataState extends State<InputData> {
       ),
     );
   }
+}
+
+showAlertDialog(BuildContext context, String chosenLine, String chosenColour, String submissionDate) {
+
+  // set up the button
+  Widget okButton = TextButton(
+    child: const Text("Pogchamp"),
+    onPressed: () {
+      Navigator.of(context).pop();
+    },
+  );
+
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: const Text("Submitted (Cached?) Info"),
+    content: Text("Tram Colour: $chosenColour\nChosen Line: $chosenLine\nSubmitted On:\n$submissionDate"),
+    actions: [
+      okButton,
+    ],
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
 }
