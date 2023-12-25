@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:witl/fetcher.dart';
-import 'package:witl/home_screen.dart';
+import 'package:intl/intl.dart';
 
 class InputData extends StatefulWidget {
   const InputData({super.key});
@@ -13,6 +12,9 @@ class _InputDataState extends State<InputData> {
   late String selectedColor = 'Blue'; // Default color
   late String selectedLine = '1'; // Default line
 
+  DateTime now = DateTime.now();
+  String formattedDate = DateFormat('kk:mm:ss \n EEE d MMM').format(DateTime.now());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +25,9 @@ class _InputDataState extends State<InputData> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Text("Choose Tram Line and Colour"),
+
           const SizedBox(height: 15),
+
           const Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -33,6 +37,7 @@ class _InputDataState extends State<InputData> {
               SizedBox(width: 25),
             ],
           ),
+
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -67,29 +72,55 @@ class _InputDataState extends State<InputData> {
               ),
             ],
           ),
-          const SizedBox(height: 20),
+          
+          const SizedBox(height: 30),
+          
           InkWell(
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const HomeScreen()),
-              );
+              // Grab Data from Dropdowns
+              selectedColor;
+              selectedLine;
+              
+              // Grab Time
+              formattedDate;
+
+              // Send
+              //lingy plez
             },
             child: Container(
-                padding: const EdgeInsets.all(20.0),
-                child: const Text("To Homescreen")),
+              padding: const EdgeInsets.all(20.0),
+              child: const Text("Submit Arrival"),
+            ),
           ),
-          const SizedBox(height: 20),
+
+          const SizedBox(height: 50),
+          
           InkWell(
             onTap: () {
-              Navigator.push(
+              Navigator.pushNamedAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (context) => const FetchAPI()),
+                '/',
+                (route) => false
               );
             },
             child: Container(
                 padding: const EdgeInsets.all(20.0),
-                child: const Text("To Fetch Data")),
+                child: const Text("Homescreen")),
+          ),
+
+          const SizedBox(height: 10),
+
+          InkWell(
+            onTap: () {
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                '/fetch',
+                (route) => false
+              );
+            },
+            child: Container(
+                padding: const EdgeInsets.all(20.0),
+                child: const Text("Fetch Data")),
           ),
         ],
       ),
