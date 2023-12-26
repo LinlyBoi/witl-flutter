@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:witl/album_fetch.dart';
 
 class FetchAPI extends StatefulWidget {
-  const FetchAPI({super.key});
+  const FetchAPI({Key? key}) : super(key: key);
 
   @override
   State<FetchAPI> createState() => _FetchAPIState();
 }
 
 class _FetchAPIState extends State<FetchAPI> {
-  late Future<FetchAlbum> fetchedAlbum;
+  late Future<List<Arrival>> fetchedArrivals;
 
   @override
   void initState() {
     super.initState();
-    fetchedAlbum = fetchArrivals();
+    fetchedArrivals = fetchArrivals();
   }
 
   @override
@@ -25,29 +25,34 @@ class _FetchAPIState extends State<FetchAPI> {
       ),
       body: ListView(
         children: [
-          FutureBuilder<FetchAlbum> (
-            future: fetchedAlbum,
+          FutureBuilder<List<Arrival>>(
+            future: fetchedArrivals,
             builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return Text(snapshot.data!.timeOfDay);
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const CircularProgressIndicator();
               } else if (snapshot.hasError) {
-                return Text('${snapshot.error}');
+                return Text('Failed to fetch data.\nError: ${snapshot.error}');
+              } else {
+                return ListView.builder(
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      title: Text(snapshot.data![index].timeOfDay),
+                    );
+                  },
+                );
               }
-
-              return const  CircularProgressIndicator();
             },
           ),
           InkWell(
             onTap: () {
               Navigator.pushNamedAndRemoveUntil(
-                context,
-                '/',
-                (route) => false
-              );
+                  context, '/', (route) => false);
             },
             child: Container(
-                padding: const EdgeInsets.all(20.0),
-                child: const Text("Homescreen")),
+              padding: const EdgeInsets.all(20.0),
+              child: const Text("Homescreen"),
+            ),
           ),
         ],
       ),

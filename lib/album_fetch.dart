@@ -1,53 +1,57 @@
-
 import 'dart:convert';
 import 'dart:async';
 
 import 'package:http/http.dart' as http;
 
-Future<FetchAlbum> fetchArrivals() async {
+Future<List<Arrival>> fetchArrivals() async {
   final response = await http
-      .get(Uri.parse(DB_URL));
+      .get(Uri.parse('http://141.144.238.26:48502/arrivals/all'));
 
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.
-    return FetchAlbum.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
+    List<dynamic> data = jsonDecode(response.body);
+    List<Arrival> posts = List<Arrival>.from(data.map((dynamic postJson) {
+      return Arrival.fromJson(postJson);
+    }));
   } else {
     // If the server did not return a 200 OK response,
     // then throw an exception.
-    throw Exception('Failed to load album');
+    throw Exception('Failed to load Arrival');
   }
+
+  throw Exception("API Unavailable");
 }
 
-class FetchAlbum {
+class Arrival {
   final String timeOfDay;
   final int weekDay;
-  final String tramLine;
+  final int tramLine;
   final bool direction;
 
-  const FetchAlbum({
+  const Arrival({
     required this.timeOfDay,
     required this.weekDay,
     required this.tramLine,
     required this.direction,
   });
 
-  factory FetchAlbum.fromJson(Map<String, dynamic> json) {
+  factory Arrival.fromJson(Map<String, dynamic> json) {
     return switch (json) {
       {
         'time_of_day': String jsonTime,
         'week_day': int jsonDay,
-        'tram_line': String jsonTramLine,
+        'tram_line': int jsonTramLine,
         'direction': bool jsonDirec,
       } =>
-        FetchAlbum(
+        Arrival(
           // Class : json declaration
           timeOfDay: jsonTime,
           weekDay: jsonDay,
           tramLine: jsonTramLine,
           direction: jsonDirec,
         ),
-      _ => throw const FormatException('Failed to load album.'),
+      _ => throw const FormatException('Failed to load Arrival.'),
     };
   }
 }
