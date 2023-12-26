@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:witl/arrival.dart';
 import 'package:witl/arrival_fetch.dart';
 
 class FetchAPI extends StatefulWidget {
