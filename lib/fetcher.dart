@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:witl/home_screen.dart';
-import 'package:witl/input_data.dart';
+import 'package:witl/arrival_fetch.dart';
 
-class FetchAPI extends StatelessWidget {
+class FetchAPI extends StatefulWidget {
   const FetchAPI({super.key});
+
+  @override
+  State<FetchAPI> createState() => _FetchAPIState();
+}
+
+class _FetchAPIState extends State<FetchAPI> {
+  late Future<List<Arrival>> fetchedArrivals;
 
   @override
   Widget build(BuildContext context) {
@@ -14,33 +20,71 @@ class FetchAPI extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          Expanded(
+            child: SizedBox(
+              child: FutureBuilder<List<Arrival>>(
+                future: fetchedArrivals,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const CircularProgressIndicator();
+                  } else if (snapshot.hasError) {
+                    return Text('Failed to fetch data.\nError: ${snapshot.error}');
+                  } else {
+                    return ListView.builder(
+                      itemCount: snapshot.data!.length,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          title: Text("Arrival Time: ${snapshot.data![index].timeOfDay}"),
+                          titleAlignment: ListTileTitleAlignment.center,
+                          subtitle: Text("Week Day: ${weekNumToString(snapshot.data![index].weekDay)}"),
+                        );
+                      },
+                    );
+                  }
+                },
+              ),
+            ),
+          ),
+          const SizedBox(height: 30,),
           InkWell(
-            onTap:() {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const HomeScreen())
-                );
+            onTap: () {
+              Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
             },
             child: Container(
               padding: const EdgeInsets.all(20.0),
-              child: const Text("To Homescreen")
+              child: const Text("Homescreen"),
             ),
           ),
-          const SizedBox(height: 20),
-          InkWell(
-            onTap:() {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const InputData())
-                );
-            },
-            child: Container(
-              padding: const EdgeInsets.all(20.0),
-              child: const Text("To Input Data")
-            ),
-          ),
+          const SizedBox(height: 35,),
         ],
       ),
     );
   }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchedArrivals = fetchArrivals();
+  }
+}
+
+String weekNumToString(int weekday) {
+  switch (weekday) {
+    case 1:
+      return "Monday";
+    case 2:
+      return "Tuesday";
+    case 3:
+      return "Wednesday";
+    case 4:
+      return "Thursday";
+    case 5:
+      return "Friday";
+    case 6:
+      return "Saturday";
+    case 7:
+      return "Sunday";
+  }
+
+  throw "AAAAAAAAA";
 }
