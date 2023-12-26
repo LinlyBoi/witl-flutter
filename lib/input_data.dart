@@ -116,7 +116,7 @@ class _InputDataState extends State<InputData> {
               selectedColor; //
 
               if (selectedColor == 'Yellow') {
-                selectedLine + 2;
+                selectedLine += 2;
               }
 
               // Conforming by db standard of boolean
