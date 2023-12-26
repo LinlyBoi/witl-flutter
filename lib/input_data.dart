@@ -11,9 +11,13 @@ class InputData extends StatefulWidget {
 class _InputDataState extends State<InputData> {
   late String selectedColor = 'Blue'; // Default color
   late String selectedLine = '1'; // Default line
+  late String selectedDirection = 'Raml'; // Default Station Direction
 
+  // Date and Time Info, FULLY
   DateTime now = DateTime.now();
-  String formattedDate = DateFormat('kk:mm:ss \n EEE d MMM').format(DateTime.now());
+
+  // What will be displayed to the user
+  String userFormattedString = DateFormat('kk:mm EEE dd MMM').format(DateTime.now());
 
   @override
   Widget build(BuildContext context) {
@@ -72,23 +76,65 @@ class _InputDataState extends State<InputData> {
               ),
             ],
           ),
+
+          const SizedBox(height: 30),
+
+          const Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("Direction:"),
+              SizedBox(width: 20),
+            ],
+          ),
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              DropdownButton<String>(
+                value: selectedDirection,
+                items: <String>['Raml', 'Victoria'].map((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+                onChanged: (String? newEnd) {
+                  setState(() {
+                    selectedDirection = newEnd ?? 'Victoria'; // Set a default value if newLine is null
+                  });
+                },
+              ),
+            ],
+          ),
           
           const SizedBox(height: 30),
           
           InkWell(
             onTap: () {
               // Grab Data from Dropdowns
-              selectedColor;
+              selectedColor; // 
               selectedLine;
+
+              // Conforming by db standard of boolean
+              bool payloadDirection;
+
+              if (selectedDirection == 'Raml') {
+                payloadDirection = true;
+              } else {
+                payloadDirection = false;
+              }
               
               // Grab Time
-              formattedDate;
+              now.weekday; // Day    (1 ->  7) !! Starts Monday !!
+              now.hour;    // Hour   (0 -> 23)
+              now.minute;  // Minute (0 -> 59)
+              now.second;  // Second (0 -> 59)
 
               // Send
               //lingy plez
 
               //prompting of submission
-              showAlertDialog(context, selectedLine, selectedColor, formattedDate);
+              showAlertDialog(context, selectedLine, selectedColor, selectedDirection, userFormattedString);
             },
             child: Container(
               padding: const EdgeInsets.all(20.0),
@@ -131,7 +177,7 @@ class _InputDataState extends State<InputData> {
   }
 }
 
-showAlertDialog(BuildContext context, String chosenLine, String chosenColour, String submissionDate) {
+showAlertDialog(BuildContext context, String chosenLine, String chosenColour, String chosenDir, String submissionDate) {
 
   // set up the button
   Widget okButton = TextButton(
@@ -144,7 +190,7 @@ showAlertDialog(BuildContext context, String chosenLine, String chosenColour, St
   // set up the AlertDialog
   AlertDialog alert = AlertDialog(
     title: const Text("Submitted (Cached?) Info"),
-    content: Text("Tram Colour: $chosenColour\nChosen Line: $chosenLine\nSubmitted On:\n$submissionDate"),
+    content: Text("Tram Colour: $chosenColour\n\nChosen Line: $chosenLine\n\nDirection: $chosenDir\n\nSubmitted On: $submissionDate"),
     actions: [
       okButton,
     ],
