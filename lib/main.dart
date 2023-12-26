@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:witl/fetcher.dart';
 import 'package:witl/home_screen.dart';
+import 'package:witl/input_data.dart';
 
 void main() => runApp(const MyApp());
 
@@ -13,7 +15,22 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const HomeScreen(),
+
+      // Navigashun with Routes
+      // Base "Home" Route
+      initialRoute: '/',
+
+      // Possible Routes
+      routes: {
+        // Homescreen
+        '/': (context) => const HomeScreen(),
+        
+        // Fetching API Data
+        '/fetch': (context) => const FetchAPI(),
+
+        // User Input
+        '/input': (context) => const InputData(),
+      },
     );
   }
 }
