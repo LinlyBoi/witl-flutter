@@ -188,7 +188,10 @@ showAlertDialog(BuildContext context, int chosenLine, String chosenColour, Strin
   Widget okButton = TextButton(
     child: const Text("Pogchamp"),
     onPressed: () {
-      Navigator.of(context).pop();
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        '/',
+        (route) => false);
     },
   );
 
