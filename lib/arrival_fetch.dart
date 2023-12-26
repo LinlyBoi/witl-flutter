@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:async';
 
 import 'package:http/http.dart' as http;
+import 'package:witl/arrival.dart';
 
 Future<List<Arrival>> fetchArrivals() async {
   try {
@@ -22,28 +23,3 @@ Future<List<Arrival>> fetchArrivals() async {
     throw Exception('Failed to fetch data: $error');
   }
 }
-
-
-class Arrival {
-  final String timeOfDay;
-  final int weekDay;
-  final int tramLine;
-  final bool direction;
-
-  Arrival({
-    required this.timeOfDay,
-    required this.weekDay,
-    required this.tramLine,
-    required this.direction,
-  });
-
-  factory Arrival.fromJson(Map<String, dynamic> json) {
-    return Arrival(
-      timeOfDay: json['time_of_day'] as String,
-      weekDay: json['week_day'] as int,
-      tramLine: json['tram_line'] as int,
-      direction: json['direction'] as bool,
-    );
-  }
-}
-
