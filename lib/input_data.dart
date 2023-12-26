@@ -197,7 +197,7 @@ showAlertDialog(BuildContext context, int chosenLine, String chosenColour, Strin
 
   // set up the AlertDialog
   AlertDialog alert = AlertDialog(
-    title: const Text("Submitted (Cached?) Info"),
+    title: const Text("Submitted Info"),
     content: Text("Tram Colour: $chosenColour\n\nChosen Line: $chosenLine\n\nDirection: $chosenDir\n\nSubmitted On: $submissionDate"),
     actions: [
       okButton,
