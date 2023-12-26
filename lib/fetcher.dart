@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:witl/album_fetch.dart';
 
 class FetchAPI extends StatefulWidget {
-  const FetchAPI({Key? key}) : super(key: key);
+  const FetchAPI({super.key});
 
   @override
   State<FetchAPI> createState() => _FetchAPIState();
@@ -10,12 +10,6 @@ class FetchAPI extends StatefulWidget {
 
 class _FetchAPIState extends State<FetchAPI> {
   late Future<List<Arrival>> fetchedArrivals;
-
-  @override
-  void initState() {
-    super.initState();
-    fetchedArrivals = fetchArrivals();
-  }
 
   @override
   Widget build(BuildContext context) {
