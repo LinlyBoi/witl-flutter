@@ -9,30 +9,11 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset('assets/images/choo.png',
-              fit: BoxFit.contain,
-              height: 64,
-            ),
-            const SizedBox(width: 10,),
-            const Text("WITL"),
-            ]
-        ),
+        title: const Text("Placeholder for Home Screen"),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children:[
-              Text("We may not be able to tell you why.\nBut surely are able to predict when."),
-            ],
-          ),
-
-          const SizedBox(height: 80),
-          
           InkWell(
             onTap:() {
               Navigator.push(
@@ -45,9 +26,7 @@ class HomeScreen extends StatelessWidget {
               child: const Text("To Fetch Data")
             ),
           ),
-          
-          const SizedBox(height: 30),
-          
+          const SizedBox(height: 20),
           InkWell(
             onTap:() {
               Navigator.push(
