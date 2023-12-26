@@ -5,7 +5,7 @@ class InputData extends StatefulWidget {
   const InputData({super.key});
 
   @override
-  _InputDataState createState() => _InputDataState();
+  State<InputData> createState() => _InputDataState();
 }
 
 class _InputDataState extends State<InputData> {

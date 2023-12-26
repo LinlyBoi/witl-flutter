@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:witl/album_fetch.dart';
+import 'package:witl/arrival_fetch.dart';
 
 class FetchAPI extends StatefulWidget {
   const FetchAPI({super.key});
@@ -17,8 +17,9 @@ class _FetchAPIState extends State<FetchAPI> {
       appBar: AppBar(
         title: const Text("Fetching API"),
       ),
-      body: Row(
-        children: <Widget>[
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
           Expanded(
             child: SizedBox(
               child: FutureBuilder<List<Arrival>>(
@@ -33,7 +34,9 @@ class _FetchAPIState extends State<FetchAPI> {
                       itemCount: snapshot.data!.length,
                       itemBuilder: (context, index) {
                         return ListTile(
-                          title: Text(snapshot.data![index].timeOfDay),
+                          title: Text("Arrival Time: ${snapshot.data![index].timeOfDay}"),
+                          titleAlignment: ListTileTitleAlignment.center,
+                          subtitle: Text("Week Day: ${weekNumToString(snapshot.data![index].weekDay)}"),
                         );
                       },
                     );
@@ -42,6 +45,7 @@ class _FetchAPIState extends State<FetchAPI> {
               ),
             ),
           ),
+          const SizedBox(height: 30,),
           InkWell(
             onTap: () {
               Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
@@ -51,6 +55,7 @@ class _FetchAPIState extends State<FetchAPI> {
               child: const Text("Homescreen"),
             ),
           ),
+          const SizedBox(height: 35,),
         ],
       ),
     );
@@ -61,4 +66,25 @@ class _FetchAPIState extends State<FetchAPI> {
     super.initState();
     fetchedArrivals = fetchArrivals();
   }
+}
+
+String weekNumToString(int weekday) {
+  switch (weekday) {
+    case 1:
+      return "Monday";
+    case 2:
+      return "Tuesday";
+    case 3:
+      return "Wednesday";
+    case 4:
+      return "Thursday";
+    case 5:
+      return "Friday";
+    case 6:
+      return "Saturday";
+    case 7:
+      return "Sunday";
+  }
+
+  throw "AAAAAAAAA";
 }
