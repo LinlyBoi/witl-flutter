@@ -24,7 +24,7 @@ class HomeScreen extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Row(
+          const Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children:[
               Text("We may not be able to tell you why.\nBut surely are able to predict when."),
