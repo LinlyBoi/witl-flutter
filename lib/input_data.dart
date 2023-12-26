@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:witl/arrival_post.dart';
 
 class InputData extends StatefulWidget {
   const InputData({super.key});
@@ -11,7 +10,7 @@ class InputData extends StatefulWidget {
 
 class _InputDataState extends State<InputData> {
   late String selectedColor = 'Blue'; // Default color
-  late int selectedLine = 1; // Default line
+  late String selectedLine = '1'; // Default line
   late String selectedDirection = 'Raml'; // Default Station Direction
 
   // Date and Time Info, FULLY
@@ -46,17 +45,17 @@ class _InputDataState extends State<InputData> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              DropdownButton<int>(
+              DropdownButton<String>(
                 value: selectedLine,
-                items: <int>[1, 2].map((int value) {
-                  return DropdownMenuItem<int>(
+                items: <String>['1', '2'].map((String value) {
+                  return DropdownMenuItem<String>(
                     value: value,
-                    child: Text(value.toString()),
+                    child: Text(value),
                   );
                 }).toList(),
-                onChanged: (int? newLine) {
+                onChanged: (String? newLine) {
                   setState(() {
-                    selectedLine = newLine ?? 1; // Set a default value if newLine is null
+                    selectedLine = newLine ?? '1'; // Set a default value if newLine is null
                   });
                 },
               ),
@@ -113,11 +112,13 @@ class _InputDataState extends State<InputData> {
           InkWell(
             onTap: () {
               // Grab Data from Dropdowns
+
               selectedColor; //
 
               if (selectedColor == 'Yellow') {
                 selectedLine += 2;
               }
+
 
               // Conforming by db standard of boolean
               bool payloadDirection;
@@ -136,7 +137,6 @@ class _InputDataState extends State<InputData> {
 
               // Send
               //lingy plez
-              insertArrival('${now.hour}:${now.minute}:${now.second}', now.weekday, selectedLine, payloadDirection);
 
               //prompting of submission
               showAlertDialog(context, selectedLine, selectedColor, selectedDirection, userFormattedString);
@@ -182,22 +182,19 @@ class _InputDataState extends State<InputData> {
   }
 }
 
-showAlertDialog(BuildContext context, int chosenLine, String chosenColour, String chosenDir, String submissionDate) {
+showAlertDialog(BuildContext context, String chosenLine, String chosenColour, String chosenDir, String submissionDate) {
 
   // set up the button
   Widget okButton = TextButton(
     child: const Text("Pogchamp"),
     onPressed: () {
-      Navigator.pushNamedAndRemoveUntil(
-        context,
-        '/',
-        (route) => false);
+      Navigator.of(context).pop();
     },
   );
 
   // set up the AlertDialog
   AlertDialog alert = AlertDialog(
-    title: const Text("Submitted Info"),
+    title: const Text("Submitted (Cached?) Info"),
     content: Text("Tram Colour: $chosenColour\n\nChosen Line: $chosenLine\n\nDirection: $chosenDir\n\nSubmitted On: $submissionDate"),
     actions: [
       okButton,

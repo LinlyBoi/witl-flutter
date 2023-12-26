@@ -1,25 +1,46 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:witl/arrival.dart';
 
-Future<Arrival> insertArrival(String date, int weekday, int line, bool direction) async {
+Future<Album> createAlbum(String title) async {
   final response = await http.post(
-    Uri.parse('http://141.144.238.26:48502/arrivals/insert'),
-    headers: <String, String> {
+    Uri.parse('https://jsonplaceholder.typicode.com/albums'),
+    headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
-    body: jsonEncode(<String, dynamic> {
-      'time_of_day': date,
-      'week_day': weekday,
-      'tram_line': line,
-      'direction': direction,
-    })
+    body: jsonEncode(<String, String>{
+      'title': title,
+    }),
   );
 
   if (response.statusCode == 201) {
-    return Arrival.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
+    // If the server did return a 201 CREATED response,
+    // then parse the JSON.
+    return Album.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
   } else {
-    throw Exception('Insertion Failure.');
+    // If the server did not return a 201 CREATED response,
+    // then throw an exception.
+    throw Exception('Failed to create album.');
+  }
+}
+
+class Album {
+  final int id;
+  final String title;
+
+  const Album({required this.id, required this.title});
+
+  factory Album.fromJson(Map<String, dynamic> json) {
+    return switch (json) {
+      {
+        'id': int id,
+        'title': String title,
+      } =>
+        Album(
+          id: id,
+          title: title,
+        ),
+      _ => throw const FormatException('Failed to load album.'),
+    };
   }
 }
