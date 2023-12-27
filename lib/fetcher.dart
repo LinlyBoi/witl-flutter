@@ -17,49 +17,69 @@ class _FetchAPIState extends State<FetchAPI> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Fetching API"),
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Expanded(
-            child: SizedBox(
-              child: FutureBuilder<List<Arrival>>(
-                future: fetchedArrivals,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const CircularProgressIndicator();
-                  } else if (snapshot.hasError) {
-                    return Text('Failed to fetch data.\nError: ${snapshot.error}');
-                  } else {
-                    return ListView.builder(
-                      itemCount: snapshot.data!.length,
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          title: Text("Arrival Time: ${snapshot.data![index].timeOfDay}"),
-                          titleAlignment: ListTileTitleAlignment.center,
-                          subtitle: Text("Week Day: ${weekNumToString(snapshot.data![index].weekDay)}"),
-                        );
-                      },
-                    );
-                  }
-                },
-              ),
-            ),
-          ),
-          const SizedBox(height: 30,),
-          InkWell(
-            onTap: () {
-              Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+        actions: [
+          IconButton(
+            onPressed: () {
+              setState(() {
+                fetchedArrivals = fetchArrivals();
+              });
             },
-            child: Container(
-              padding: const EdgeInsets.all(20.0),
-              child: const Text("Homescreen"),
-            ),
+            icon: const Icon(Icons.refresh_sharp),
           ),
-          const SizedBox(height: 35,),
+          const SizedBox(width: 30,),
         ],
       ),
+      body: RefreshIndicator(
+        onRefresh: _refreshData,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Expanded(
+              child: SizedBox(
+                child: FutureBuilder<List<Arrival>>(
+                  future: fetchedArrivals,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const CircularProgressIndicator();
+                    } else if (snapshot.hasError) {
+                      return Text('Failed to fetch data.\nError: ${snapshot.error}');
+                    } else {
+                      return ListView.builder(
+                        itemCount: snapshot.data!.length,
+                        itemBuilder: (context, index) {
+                          return ListTile(
+                            title: Text("Arrival Time: ${snapshot.data![index].timeOfDay}"),
+                            titleAlignment: ListTileTitleAlignment.center,
+                            subtitle: Text("Week Day: ${weekNumToString(snapshot.data![index].weekDay)}"),
+                          );
+                        },
+                      );
+                    }
+                  },
+                ),
+              ),
+            ),
+            const SizedBox(height: 30,),
+            InkWell(
+              onTap: () {
+                Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+              },
+              child: Container(
+                padding: const EdgeInsets.all(20.0),
+                child: const Text("Homescreen"),
+              ),
+            ),
+            const SizedBox(height: 35,),
+          ],
+        ),
+      ),
     );
+  }
+
+  Future<void> _refreshData() async {
+    setState(() {
+      fetchedArrivals = fetchArrivals();
+    });
   }
 
   @override
