@@ -1,16 +1,9 @@
-# witl
+# WITL
 
-A new Flutter project.
+"We cannot tell you why the tram is late But surely can predict (sort of) its arrival"
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+Flutter project aimed as a cross-platform extension of the [Native Android Version](https://github.com/LinlyBoi/WITL) of WITL.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Also includes actual usage of our [From Scratch API](https://github.com/LinlyBoi/witl-api) written in Rust and Docker-deployed.
