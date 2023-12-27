@@ -17,6 +17,15 @@ class _FetchAPIState extends State<FetchAPI> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Fetching API"),
+        actions: [
+          IconButton(
+            onPressed: () {
+              setState(() {
+                fetchedArrivals = fetchArrivals();
+              });
+            },
+            icon: const Icon(Icons.refresh_rounded))
+        ],
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
