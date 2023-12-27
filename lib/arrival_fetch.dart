@@ -15,7 +15,7 @@ Future<List<Arrival>> fetchArrivals() async {
       // }));
       Iterable I = json.decode(response.body);
       List<Arrival> arrivals = List<Arrival>.from(I.map((model)=>Arrival.fromJson(model)));
-      return arrivals;
+      return arrivals.reversed.toList();
     } else {
       throw Exception('Failed to load Arrival');
     }
