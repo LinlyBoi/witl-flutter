@@ -6,9 +6,18 @@ import 'package:witl/input_data.dart';
 
 void main() => runApp(const MyApp());
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+
+  static _MyAppState of(BuildContext context) => context.findAncestorStateOfType<_MyAppState>()!;
+}
+
+class _MyAppState  extends State<MyApp> {
+  ThemeMode _theme = ThemeMode.system;
+  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -26,11 +35,11 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.black,
         brightness: Brightness.dark,
         dividerColor: Colors.black12,
-        scaffoldBackgroundColor: Color(0xFF131313),
+        scaffoldBackgroundColor: const Color(0xFF131313),
 
       ),
 
-      themeMode: ThemeMode.system,
+      themeMode: _theme,
 
       // Navigashun with Routes
       // Base "Home" Route
@@ -51,5 +60,18 @@ class MyApp extends StatelessWidget {
         '/settings': (context) => const Settings(),
       },
     );
+  }
+
+  void changeTheme(String newTheme) {
+    setState(() {
+      switch(newTheme) {
+        case "Light":
+          _theme = ThemeMode.light;
+        case "Dark":
+          _theme = ThemeMode.dark;
+        case "System Default":
+          _theme = ThemeMode.system;
+      }
+    });
   }
 }
