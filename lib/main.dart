@@ -14,6 +14,9 @@ class MyApp extends StatelessWidget {
       title: "Entry Point",
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        appBarTheme: AppBarTheme(
+          color: Colors.amber[100],
+          ),
       ),
 
       // Navigashun with Routes
