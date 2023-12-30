@@ -51,6 +51,9 @@ class _FetchAPIState extends State<FetchAPI> {
                             title: Text("Arrival Time: ${snapshot.data![index].timeOfDay}"),
                             titleAlignment: ListTileTitleAlignment.center,
                             subtitle: Text("Week Day: ${weekNumToString(snapshot.data![index].weekDay)}"),
+                            onTap: () => {
+                              showArrivalInfo(context, snapshot.data![index])
+                            },
                           );
                         },
                       );
@@ -107,5 +110,41 @@ String weekNumToString(int weekday) {
       return "Sunday";
   }
 
-  throw "AAAAAAAAA";
+  throw "Week Day Parse Error";
+}
+
+showArrivalInfo(BuildContext context, Arrival data) {
+  // set up the button
+  Widget okButton = TextButton(
+    child: const Text("Back"),
+    onPressed: () {
+      Navigator.pop(context);
+    },
+  );
+
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: const Text("Selected Arrival Info"),
+    content: Text("Tram Colour: JSON DOESN'T HAVE COLOUR\n\nChosen Line: ${data.tramLine}\n\nDirection: ${directionParse(data.direction)}\n\nSubmitted On: ${data.timeOfDay} (Needs to include date)"),
+    actions: [
+      okButton,
+    ],
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
+}
+
+String directionParse(bool direction) {
+  switch (direction) {
+    case true:
+      return "Raml";
+    case false:
+      return "Victoria";
+  }
 }

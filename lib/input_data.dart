@@ -205,7 +205,7 @@ class _InputDataState extends State<InputData> {
   }
 }
 
-showAlertDialog(BuildContext context, int chosenLine, String chosenColour, String chosenDir, String submissionDate) {
+showSubmissionSuccess(BuildContext context, int chosenLine, String chosenColour, String chosenDir, String submissionDate) {
 
   // Delay (I want the splash to show)
   //Future.delayed(const Duration(milliseconds: 200));
