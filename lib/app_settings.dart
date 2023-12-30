@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:witl/theme_manager.dart';
 
 class Settings extends StatelessWidget {
   const Settings({super.key});
@@ -7,8 +8,14 @@ class Settings extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Settings Screen"),
+        title: const Text("Settings"),
       ),
+
+      body: ListView(
+        children: [
+          
+        ],
+      )
     );
   }
 }
