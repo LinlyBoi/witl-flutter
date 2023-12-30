@@ -24,7 +24,8 @@ class _InputDataState extends State<InputData> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Data Input"),
+        // Naming the screen
+        title: const Text("Arrivals Input"),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -33,42 +34,53 @@ class _InputDataState extends State<InputData> {
 
           const SizedBox(height: 15),
 
+          // Prompt Row
           const Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text("Line:"),
+
               SizedBox(width: 35),
+              
               Text("Colour:"),
+              
               SizedBox(width: 25),
             ],
           ),
 
+          // Checkbox Row
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               DropdownButton<int>(
                 value: selectedLine,
+                
                 items: <int>[1, 2].map((int value) {
                   return DropdownMenuItem<int>(
                     value: value,
                     child: Text(value.toString()),
                   );
                 }).toList(),
+                
                 onChanged: (int? newLine) {
                   setState(() {
                     selectedLine = newLine ?? 1; // Set a default value if newLine is null
                   });
                 },
               ),
+
               const SizedBox(width: 30),
+
               DropdownButton<String>(
                 value: selectedColor,
+                
                 items: <String>['Blue', 'Yellow'].map((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
                     child: Text(value),
                   );
                 }).toList(),
+                
                 onChanged: (String? newCol) {
                   setState(() {
                     selectedColor = newCol ?? 'Blue'; // Set a default value if newCol is null
@@ -82,6 +94,7 @@ class _InputDataState extends State<InputData> {
 
           const Row(
             mainAxisAlignment: MainAxisAlignment.center,
+            
             children: [
               Text("Direction:"),
               SizedBox(width: 20),
@@ -90,15 +103,18 @@ class _InputDataState extends State<InputData> {
 
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
+            
             children: [
               DropdownButton<String>(
                 value: selectedDirection,
+                
                 items: <String>['Raml', 'Victoria'].map((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
                     child: Text(value),
                   );
                 }).toList(),
+                
                 onChanged: (String? newEnd) {
                   setState(() {
                     selectedDirection = newEnd ?? 'Victoria'; // Set a default value if newLine is null
@@ -111,6 +127,10 @@ class _InputDataState extends State<InputData> {
           const SizedBox(height: 30),
           
           InkWell(
+            hoverDuration: const Duration(milliseconds: 450),
+            hoverColor: (selectedColor == "Blue") ? Colors.blue[500] : Colors.yellow[700],
+            borderRadius: BorderRadius.circular(30),
+            splashColor: (selectedColor == "Blue") ? Colors.blue[800] : Colors.yellow[700],
             onTap: () {
               // Grab Data from Dropdowns
               selectedColor; //
@@ -141,6 +161,7 @@ class _InputDataState extends State<InputData> {
               //prompting of submission
               showAlertDialog(context, selectedLine, selectedColor, selectedDirection, userFormattedString);
             },
+            
             child: Container(
               padding: const EdgeInsets.all(20.0),
               child: const Text("Submit Arrival"),
@@ -157,6 +178,7 @@ class _InputDataState extends State<InputData> {
                 (route) => false
               );
             },
+            
             child: Container(
                 padding: const EdgeInsets.all(20.0),
                 child: const Text("Homescreen")),
@@ -172,6 +194,7 @@ class _InputDataState extends State<InputData> {
                 (route) => false
               );
             },
+            
             child: Container(
                 padding: const EdgeInsets.all(20.0),
                 child: const Text("Fetch Data")),
@@ -183,6 +206,9 @@ class _InputDataState extends State<InputData> {
 }
 
 showAlertDialog(BuildContext context, int chosenLine, String chosenColour, String chosenDir, String submissionDate) {
+
+  // Delay (I want the splash to show)
+  //Future.delayed(const Duration(milliseconds: 200));
 
   // set up the button
   Widget okButton = TextButton(
