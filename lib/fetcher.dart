@@ -108,6 +108,33 @@ class _FetchAPIState extends State<FetchAPI> {
   }
 }
 
+showArrivalInfo(BuildContext context, Arrival data) {
+  // set up the button
+  Widget okButton = TextButton(
+    child: const Text("Back"),
+    onPressed: () {
+      Navigator.pop(context);
+    },
+  );
+
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: const Text("Selected Arrival Info"),
+    content: Text("Tram Colour: JSON DOESN'T HAVE COLOUR\n\nChosen Line: ${lineShift(data.tramLine)}\n\nDirection: ${directionParse(data.direction)}\n\nSubmitted On: ${data.timeOfDay} (Needs to include date)"),
+    actions: [
+      okButton,
+    ],
+  );
+
+  // show the dialogue
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
+}
+
 String weekNumToString(int weekday) {
   switch (weekday) {
     case 1:
@@ -129,38 +156,22 @@ String weekNumToString(int weekday) {
   throw "Week Day Parse Error";
 }
 
-showArrivalInfo(BuildContext context, Arrival data) {
-  // set up the button
-  Widget okButton = TextButton(
-    child: const Text("Back"),
-    onPressed: () {
-      Navigator.pop(context);
-    },
-  );
-
-  // set up the AlertDialog
-  AlertDialog alert = AlertDialog(
-    title: const Text("Selected Arrival Info"),
-    content: Text("Tram Colour: JSON DOESN'T HAVE COLOUR\n\nChosen Line: ${data.tramLine}\n\nDirection: ${directionParse(data.direction)}\n\nSubmitted On: ${data.timeOfDay} (Needs to include date)"),
-    actions: [
-      okButton,
-    ],
-  );
-
-  // show the dialogue
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return alert;
-    },
-  );
-}
-
 String directionParse(bool direction) {
   switch (direction) {
     case true:
       return "Raml";
     case false:
       return "Victoria";
+  }
+}
+
+int lineShift(int line) {
+  switch (line) {
+    case 3:
+      return 1;
+    case 4:
+      return 2;
+    default:
+      return line;
   }
 }
