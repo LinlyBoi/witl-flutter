@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:witl/fetcher.dart';
 import 'package:witl/input_data.dart';
+import 'package:witl/app_settings.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -16,8 +17,19 @@ class HomeScreen extends StatelessWidget {
               fit: BoxFit.contain,
               height: 64,
             ),
+            
             const SizedBox(width: 10,),
+            
             const Text("WITL"),
+            
+            const Expanded(child: SizedBox(),),
+
+            IconButton(
+              onPressed: () {Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const Settings())
+              );},
+              icon: const Icon(Icons.settings))
             ]
         ),
       ),

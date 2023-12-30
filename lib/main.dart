@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:witl/app_settings.dart';
 import 'package:witl/fetcher.dart';
 import 'package:witl/home_screen.dart';
 import 'package:witl/input_data.dart';
@@ -30,6 +31,9 @@ class MyApp extends StatelessWidget {
 
         // User Input
         '/input': (context) => const InputData(),
+
+        // Settings
+        '/settings': (context) => const Settings(),
       },
     );
   }
