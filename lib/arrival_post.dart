@@ -4,11 +4,14 @@ import 'package:http/http.dart' as http;
 import 'package:witl/arrival.dart';
 
 Future<Arrival> insertArrival(String date, int weekday, int line, bool direction) async {
+  // POST response as JSON
   final response = await http.post(
     Uri.parse('http://141.144.238.26:48502/arrivals/insert'),
     headers: <String, String> {
+      // Headers used
       'Content-Type': 'application/json; charset=UTF-8',
     },
+    // Encoding a singular json entry
     body: jsonEncode(<String, dynamic> {
       'time_of_day': date,
       'week_day': weekday,

@@ -13,23 +13,32 @@ class HomeScreen extends StatelessWidget {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            // Our Amazing Logo
             Image.asset('assets/images/choo.png',
               fit: BoxFit.contain,
               height: 64,
             ),
             
+            // Spacing
             const SizedBox(width: 10,),
             
+            // App Title
             const Text("WITL"),
             
+            // Fill out the area blankly
+            // So that the icon can be shoved far right
             const Expanded(child: SizedBox(),),
 
+            // Navigate to Settings
             IconButton(
               onPressed: () {Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const Settings())
               );},
-              icon: const Icon(Icons.settings))
+              icon: const Icon(Icons.settings)),
+              
+              // Space from the end
+              const SizedBox(width: 30,),
             ]
         ),
       ),
@@ -39,12 +48,15 @@ class HomeScreen extends StatelessWidget {
           const Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children:[
+              // Our Motto (?)
               Text("We may not be able to tell you why.\nBut surely are able to predict when."),
             ],
           ),
 
+          // Spacing
           const SizedBox(height: 80),
           
+          // To the fetching screen
           InkWell(
             onTap:() {
               Navigator.push(
@@ -60,6 +72,7 @@ class HomeScreen extends StatelessWidget {
           
           const SizedBox(height: 30),
           
+          // To Data Input
           InkWell(
             onTap:() {
               Navigator.push(

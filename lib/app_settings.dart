@@ -9,7 +9,7 @@ class Settings extends StatefulWidget {
 }
 
 class _Settings extends State<Settings> {
-  late String selectedTheme = 'Dark';
+  late String selectedTheme = 'Dark'; // Default app theme
 
   @override
   Widget build(BuildContext context) {
@@ -20,9 +20,12 @@ class _Settings extends State<Settings> {
 
       body: ListView(
         children:[
+          // List of Tiles in the Settings Screen
+          // Starting with App Theme
           ListTile(
             title: const Text("App Theme"),
             subtitle: const Text("Sets the theme of the app between: Dark, Light, System Default."),
+            // User Selection
             trailing: DropdownButton<String> (
               value: selectedTheme,
               items: <String>["Light", "Dark", "System Default"].map((String value) {
@@ -31,6 +34,7 @@ class _Settings extends State<Settings> {
                   child: Text(value),
                   );
               }).toList(),
+              // Updating Selection
               onChanged: (String? updatedTheme) {
                 setState(() {
                   selectedTheme = updatedTheme ?? selectedTheme;

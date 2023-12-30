@@ -18,6 +18,7 @@ class _FetchAPIState extends State<FetchAPI> {
       appBar: AppBar(
         title: const Text("Fetching API"),
         actions: [
+          // Refresh fetched list
           IconButton(
             onPressed: () {
               setState(() {
@@ -26,10 +27,15 @@ class _FetchAPIState extends State<FetchAPI> {
             },
             icon: const Icon(Icons.refresh_sharp),
           ),
+
+          // Spacer
           const SizedBox(width: 30,),
         ],
       ),
+      // RefreshIndicator is used so that user can pull down
+      // in order to update instead of pressing the refresh button
       body: RefreshIndicator(
+        // Method to Use no argument parenthesis
         onRefresh: _refreshData,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -41,13 +47,18 @@ class _FetchAPIState extends State<FetchAPI> {
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const CircularProgressIndicator();
-                    } else if (snapshot.hasError) {
+                    }
+                    else if (snapshot.hasError) {
                       return Text('Failed to fetch data.\nError: ${snapshot.error}');
-                    } else {
+                    }
+                    else {
                       return ListView.builder(
+                        // List items to display
                         itemCount: snapshot.data!.length,
+                        // Building them
                         itemBuilder: (context, index) {
                           return ListTile(
+                            // Really should be more informative about what's displayed
                             title: Text("Arrival Time: ${snapshot.data![index].timeOfDay}"),
                             titleAlignment: ListTileTitleAlignment.center,
                             subtitle: Text("Week Day: ${weekNumToString(snapshot.data![index].weekDay)}"),
@@ -64,8 +75,12 @@ class _FetchAPIState extends State<FetchAPI> {
             ),
             const SizedBox(height: 30,),
             InkWell(
+              // Navigating Home
               onTap: () {
-                Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+                Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  '/',
+                  (route) => false);
               },
               child: Container(
                 padding: const EdgeInsets.all(20.0),
@@ -81,6 +96,7 @@ class _FetchAPIState extends State<FetchAPI> {
 
   Future<void> _refreshData() async {
     setState(() {
+      // Refresh arrivals list by invoking the fetch method
       fetchedArrivals = fetchArrivals();
     });
   }
@@ -131,7 +147,7 @@ showArrivalInfo(BuildContext context, Arrival data) {
     ],
   );
 
-  // show the dialog
+  // show the dialogue
   showDialog(
     context: context,
     builder: (BuildContext context) {

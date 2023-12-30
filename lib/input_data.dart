@@ -159,7 +159,7 @@ class _InputDataState extends State<InputData> {
               insertArrival('${now.hour}:${now.minute}:${now.second}', now.weekday, selectedLine, payloadDirection);
 
               //prompting of submission
-              showAlertDialog(context, selectedLine, selectedColor, selectedDirection, userFormattedString);
+              showSubmissionSuccess(context, selectedLine, selectedColor, selectedDirection, userFormattedString);
             },
             
             child: Container(
