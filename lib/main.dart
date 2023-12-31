@@ -12,7 +12,8 @@ class MyApp extends StatefulWidget {
   @override
   State<MyApp> createState() => _MyAppState();
 
-  static _MyAppState of(BuildContext context) => context.findAncestorStateOfType<_MyAppState>()!;
+  static _MyAppState of(BuildContext context) =>
+    context.findAncestorStateOfType<_MyAppState>()!;
 }
 
 class _MyAppState  extends State<MyApp> {
@@ -67,10 +68,13 @@ class _MyAppState  extends State<MyApp> {
       switch(newTheme) {
         case "Light":
           _theme = ThemeMode.light;
+          break;
         case "Dark":
           _theme = ThemeMode.dark;
+          break;
         case "System Default":
           _theme = ThemeMode.system;
+          break;
       }
     });
   }
