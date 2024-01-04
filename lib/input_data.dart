@@ -117,7 +117,7 @@ class _InputDataState extends State<InputData> {
                 
                 onChanged: (String? newEnd) {
                   setState(() {
-                    selectedDirection = newEnd ?? 'Victoria'; // Set a default value if newLine is null
+                    selectedDirection = newEnd ?? selectedDirection; // Set a default value if newLine is null
                   });
                 },
               ),

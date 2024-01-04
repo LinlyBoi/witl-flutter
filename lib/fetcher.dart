@@ -16,7 +16,7 @@ class _FetchAPIState extends State<FetchAPI> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Fetching API"),
+        title: const Text("Fetched Arrivals"),
         actions: [
           // Refresh fetched list
           IconButton(
@@ -27,9 +27,6 @@ class _FetchAPIState extends State<FetchAPI> {
             },
             icon: const Icon(Icons.refresh_sharp),
           ),
-
-          // Spacer
-          const SizedBox(width: 30,),
         ],
       ),
       // RefreshIndicator is used so that user can pull down

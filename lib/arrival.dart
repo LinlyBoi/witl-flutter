@@ -13,6 +13,8 @@ class Arrival {
 
   factory Arrival.fromJson(Map<String, dynamic> json) {
     return Arrival(
+      // Key value
+      // <field>: json['<field_name_in_json>'] as <data_type>
       // Arrival Time
       timeOfDay: json['time_of_day'] as String,
       

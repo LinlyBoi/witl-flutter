@@ -36,9 +36,6 @@ class HomeScreen extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => const Settings())
               );},
               icon: const Icon(Icons.settings)),
-              
-              // Space from the end
-              const SizedBox(width: 30,),
             ]
         ),
       ),
