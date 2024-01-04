@@ -13,14 +13,27 @@ class HomeScreen extends StatelessWidget {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Our Amazing Logo
-            Image.asset('assets/images/choo.png',
-              fit: BoxFit.contain,
-              height: 64,
+            // Hamburbur menu
+            IconButton(
+              onPressed: () {
+
+              },
+              icon: const Icon(Icons.menu_sharp)
             ),
+
+            // Space
+            // const SizedBox(width: 30,),
+
+            // Our Amazing Logo
+            // Image.asset('assets/images/choo.png',
+            //   fit: BoxFit.contain,
+            //   height: 64,
+            // ),
             
             // Spacing
-            const SizedBox(width: 10,),
+            // const SizedBox(width: 10,),
+
+            const Expanded(child: SizedBox()),
             
             // App Title
             const Text("WITL"),
@@ -31,10 +44,12 @@ class HomeScreen extends StatelessWidget {
 
             // Navigate to Settings
             IconButton(
-              onPressed: () {Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const Settings())
-              );},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Settings())
+                );
+              },
               icon: const Icon(Icons.settings)),
             ]
         ),
