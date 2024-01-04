@@ -22,7 +22,7 @@ class MyAppState  extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Entry Point",
+      title: "WITL App",
       theme: ThemeData(
         primarySwatch: Colors.blue,
         primaryColor: Colors.white,
@@ -35,16 +35,15 @@ class MyAppState  extends State<MyApp> {
         primarySwatch: Colors.blue,
         primaryColor: Colors.black,
         brightness: Brightness.dark,
-        dividerColor: Colors.black12,
+        dividerColor: Colors.white38,
         scaffoldBackgroundColor: const Color(0xFF131313),
-
       ),
 
       themeMode: _theme,
 
       // Navigashun with Routes
       // Base "Home" Route
-      initialRoute: '/',
+      initialRoute: '/home',
 
       // Possible Routes
       routes: {

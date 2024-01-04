@@ -43,12 +43,27 @@ class _FetchAPIState extends State<FetchAPI> {
                   future: fetchedArrivals,
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const CircularProgressIndicator();
-                    }
-                    else if (snapshot.hasError) {
+                      return Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  height: MediaQuery. of(context). size. height / 2,
+                                  width:  MediaQuery. of(context). size. width / 3,
+
+                                  child: const CircularProgressIndicator(),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      );
+                    } else if (snapshot.hasError) {
                       return Text('Failed to fetch data.\nError: ${snapshot.error}');
-                    }
-                    else {
+                    } else {
                       return ListView.builder(
                         // List items to display
                         itemCount: snapshot.data!.length,
@@ -70,7 +85,9 @@ class _FetchAPIState extends State<FetchAPI> {
                 ),
               ),
             ),
+
             const SizedBox(height: 30,),
+            
             InkWell(
               // Navigating Home
               onTap: () {

@@ -9,7 +9,7 @@ class Settings extends StatefulWidget {
 }
 
 class _Settings extends State<Settings> {
-  late String selectedTheme = 'Dark'; // Default app theme
+  late String selectedTheme = 'System Default'; // Default app theme
 
   @override
   Widget build(BuildContext context) {
