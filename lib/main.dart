@@ -48,8 +48,14 @@ class MyAppState  extends State<MyApp> {
 
       // Possible Routes
       routes: {
+        // Login (Eventually)
+        //'/login': (context) => const LogIn(),
+
+        // Signup (Also eventually xd)
+        //'/login/signup': (context) => const SignUp(),
+
         // Homescreen
-        '/': (context) => const HomeScreen(),
+        '/home': (context) => const HomeScreen(),
         
         // Fetching API Data
         '/fetch': (context) => const FetchAPI(),

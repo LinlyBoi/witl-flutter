@@ -216,7 +216,7 @@ showSubmissionSuccess(BuildContext context, int chosenLine, String chosenColour,
     onPressed: () {
       Navigator.pushNamedAndRemoveUntil(
         context,
-        '/',
+        '/home',
         (route) => false);
     },
   );

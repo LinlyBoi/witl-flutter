@@ -76,7 +76,7 @@ class _FetchAPIState extends State<FetchAPI> {
               onTap: () {
                 Navigator.pushNamedAndRemoveUntil(
                   context,
-                  '/',
+                  '/home',
                   (route) => false);
               },
               child: Container(
